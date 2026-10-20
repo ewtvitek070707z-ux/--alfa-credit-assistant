@@ -1,0 +1,111 @@
+# =========================
+# Переменные окружения и секреты
+# =========================
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# =========================
+# Python: кеши и виртуальные окружения
+# =========================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Сборка Python-пакетов
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Тесты и инструменты Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Jupyter: временные файлы
+.ipynb_checkpoints/
+
+# =========================
+# JavaScript / TypeScript
+# =========================
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/install-state.gz
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# Сборка и кеши frontend
+.next/
+.nuxt/
+.output/
+.vite/
+.parcel-cache/
+.svelte-kit/
+out/
+coverage/
+
+# =========================
+# Локальные БД и резервные копии
+# =========================
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite3-journal
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.sql.gz
+*.sql.zip
+
+# Дампы и локальные данные БД:
+# храните их в этих папках
+/local-data/
+/backups/
+
+# =========================
+# ML: локальные модели и результаты
+# =========================
+/ml/models/
+/ml/checkpoints/
+/ml/outputs/
+/ml/.cache/
+/ml/data/raw/
+/ml/data/processed/
+wandb/
+mlruns/
+
+# =========================
+# Логи и временные файлы
+# =========================
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# =========================
+# Редакторы и ОС
+# =========================
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
