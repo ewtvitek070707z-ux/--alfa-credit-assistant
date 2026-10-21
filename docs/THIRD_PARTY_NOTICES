@@ -1,0 +1,23 @@
+THIRD PARTY NOTICES & SIMULATED INTEGRATIONS
+===============================================
+
+1. External Libraries:
+- FastAPI (MIT License) - REST API framework
+- Uvicorn (BSD License) - ASGI server
+- SQLAlchemy (MIT License) - ORM and database engine
+- Pydantic (MIT License) - Data parsing and validation
+- Pytest & HTTPX (MIT / BSD) - Automated testing suite
+
+2. Simulated External Services (Local Mocks / Stubs):
+- EGRUL / FNS "Прозрачный бизнес" Service:
+  Локальный симулятор государственных реестров ЮЛ/ИП.
+  Предоставляет регистрационные данные, ОКВЭД, статус компании и ФИО руководителя.
+- BKI (Бюро кредитных историй) Simulator:
+  Локальный симулятор бюро кредитных историй.
+  Моделирует кредитный рейтинг (скоринговый балл), количество активных договоров,
+  общую задолженность и наличие просрочек.
+
+3. Models & Datasets:
+- Скоринг и кредитное решение реализованы на базе детерминированной скоркарты (Rule-based Decision Engine)
+  без использования платных облачных API и закрытых лицензий.
+- Все тестовые профили компаний являются на 100% синтетическими.

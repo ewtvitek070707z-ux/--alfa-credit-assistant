@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: alfa_credit_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./credit_conveyor.db
+      - ENVIRONMENT=development
+    volumes:
+      - .:/app
+    restart: unless-stopped
