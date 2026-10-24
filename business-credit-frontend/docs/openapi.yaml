@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Business Credit — proposed integration contract
+  version: 0.1.0
+  description: Предлагаемый контракт для backend команды. Эти endpoints НЕ реализованы в статическом frontend. Сервер обязан обеспечить авторизацию и проверку переходов.
+servers:
+  - url: /api/v1
+paths:
+  /products:
+    get:
+      summary: Каталог продуктов с ограничениями и ставками
+      responses:
+        '200':
+          description: Массив Product из data-model.md
+  /applications:
+    post:
+      summary: Создать черновик
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [productId, amount, term, goal]
+              properties:
+                productId: {type: string}
+                amount: {type: integer, minimum: 100000}
+                term: {type: integer, minimum: 6}
+                goal: {type: string}
+                urgency: {type: string}
+      responses:
+        '201': {description: Application с id и version}
+        '422': {description: Ошибки валидации по полям}
+    get:
+      summary: Заявки текущего пользователя
+      responses:
+        '200': {description: Список Application}
+  /applications/{id}:
+    parameters:
+      - {$ref: '#/components/parameters/ApplicationId'}
+    get:
+      summary: Статус, результат и история
+      responses:
+        '200': {description: Application}
+        '404': {description: Нет доступа или заявка не найдена}
+    patch:
+      summary: Обновить поля черновика с ожидаемой версией
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, additionalProperties: true}
+      responses:
+        '200': {description: Сохранённый черновик}
+        '409': {description: Неверная версия или статус}
+        '422': {description: Ошибки полей}
+  /applications/{id}/submit:
+    parameters:
+      - {$ref: '#/components/parameters/ApplicationId'}
+    post:
+      summary: Подтвердить отправку с согласием и Idempotency-Key
+      responses:
+        '202': {description: Принята в обработку}
+        '409': {description: Неподходящий статус}
+        '422': {description: Данных недостаточно}
+  /applications/{id}/clarifications:
+    parameters:
+      - {$ref: '#/components/parameters/ApplicationId'}
+    post:
+      summary: Ответ на запрос сведений
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text: {type: string, minLength: 20}
+      responses:
+        '202': {description: Ответ принят, проверка возобновлена}
+        '422': {description: Требуется дополнение}
+  /applications/{id}/retry:
+    parameters:
+      - {$ref: '#/components/parameters/ApplicationId'}
+    post:
+      summary: Повторить технически недоступные проверки
+      responses:
+        '202': {description: Проверка возобновлена}
+        '409': {description: Повтор сейчас недопустим}
+  /applications/{id}/offer-response:
+    parameters:
+      - {$ref: '#/components/parameters/ApplicationId'}
+    post:
+      summary: Принять или отклонить текущую версию предложения
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [offerVersion, accepted]
+              properties:
+                offerVersion: {type: integer}
+                accepted: {type: boolean}
+      responses:
+        '200': {description: APPROVED или CLOSED_BY_CLIENT}
+        '409': {description: Версия предложения устарела}
+components:
+  parameters:
+    ApplicationId:
+      name: id
+      in: path
+      required: true
+      schema: {type: string}
