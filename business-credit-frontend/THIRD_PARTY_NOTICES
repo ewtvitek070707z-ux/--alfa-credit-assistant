@@ -1,0 +1,8 @@
+Runtime dependencies: no third-party JavaScript or CSS libraries, external fonts, images, paid APIs or model services.
+System fonts are provided by the user's operating system.
+Docker distribution uses Nginx 1.27.5 (2-clause BSD license, https://nginx.org/LICENSE) and Alpine Linux (component-specific open-source licenses, https://alpinelinux.org/).
+The Nginx container is not included in this source distribution.
+Mocked integrations: business register, credit history bureau, risk scoring, credit decision engine, document upload metadata.
+Assistant: local deterministic keyword rules; no LLM or model weights.
+Product names, interest rates, financial data and decisions are synthetic. No affiliation with or production integration into Alfa-Bank is claimed.
+Visual reference and process specification were supplied by the user for the hackathon.
